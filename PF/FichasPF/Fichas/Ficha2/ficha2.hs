@@ -44,8 +44,15 @@ funB [8,5,12]               mod 8 2 = 0
 
 -- 2.
 
--- (a)
+-- (a) Recebe uma lista e produz a lista em quecada elemento ´e o dobro do valor correspondente na lista de entrada.
 
 dobros :: [Float] -> [Float]
 dobros [] = []
 dobros (x:xs) = (2*x) : dobros xs
+
+-- (b) Calcula o número de vezes que um caracter ocorre numa string.
+numOcorre :: Char -> String -> Int
+numOcorre _ [] = 0
+numOcorre c (x:xs)
+                 | c == x = 1 + numOcorre c xs
+                 | otherwise = numOcorre c xs
