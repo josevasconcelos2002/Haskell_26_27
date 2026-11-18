@@ -77,12 +77,13 @@ moveDirecoesPosicao (d:ds) (l,c)
 -- 2) Defina uma função que aplica uma mesma movimentação a uma lista de posições.
 moveDirecaoPosicoes :: Direcao -> [Posicao] -> [Posicao]
 moveDirecaoPosicoes _ [] = []
-moveDirecaoPosicoes d ((l,c):h)
-                                | d == Norte = [(l-1,c)] ++ moveDirecaoPosicoes d h
-                                | d == Sul = [(l+1,c)] ++ moveDirecaoPosicoes d h
-                                | d == Este = [(l,c+1)] ++ moveDirecaoPosicoes d h
-                                | d == Oeste = [(l,c-1)] ++ moveDirecaoPosicoes d h
-                                | otherwise = [(l,c)] ++ moveDirecaoPosicoes d h
+moveDirecaoPosicoes d ((l,c):h) 
+                              | d == Norte = [(l-1,c)] ++ moveDirecaoPosicoes d h
+                              | d == Sul = [(l+1,c)] ++ moveDirecaoPosicoes d h
+                              | d == Este = [(l,c+1)] ++ moveDirecaoPosicoes d h
+                              | d == Oeste = [(l,c-1)] ++ moveDirecaoPosicoes d h
+                              | otherwise = [(l,c)] ++ moveDirecaoPosicoes d h
+
 
 
 {- 
