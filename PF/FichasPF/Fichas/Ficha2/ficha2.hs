@@ -56,3 +56,17 @@ numOcorre _ [] = 0
 numOcorre c (x:xs)
                  | c == x = 1 + numOcorre c xs
                  | otherwise = numOcorre c xs
+
+-- (c) Testa se uma lista só tem elementos positivos.
+positivos :: [Int] -> Bool
+positivos [] = True
+positivos (i:is)
+                | i >= 0 = True && positivos is
+                | otherwise = False      -- ou False && positivos is ... como False && _ é sempre False, podemos escrever apenas False (é mais eficiente)
+
+-- (d) Retira todos os elementos n˜ao positivos de uma lista de inteiros.
+soPos :: [Int] -> [Int]
+soPos [] = []
+soPos (n:ns)
+           | n >= 0 = n : soPos ns
+           | otherwise = soPos ns
