@@ -122,3 +122,45 @@ somaNeg (n:ns) = somaNegAux (n:ns) 0               0 é o valor inicial do acumu
                                   | n<0 = somaNegAux ns (acc+n)
                                   | otherwise = somaNegAux ns acc       
 -}
+
+-- (f) devolve os últimos três elementos de uma lista.
+tresUlt :: [a] -> [a]
+tresUlt [] = []
+tresUlt l@(x:xs)                  
+             | length l <= 3 = l
+             | otherwise = tresUlt xs
+
+-- (g) Calcula a lista das segundas componentes dos pares.
+segundos :: [(a,b)] -> [b]
+segundos [] = []
+segundos ((c1,c2):h) = c2 : segundos h
+
+
+-- (h)  Testa se um elemento aparece na lista como primeira componente de algum dos pares.
+nosPrimeiros :: (Eq a) => a -> [(a,b)] -> Bool
+nosPrimeiros _ [] = False
+nosPrimeiros n ((p,s):h)
+                       | n == p = True        -- ou (True || primeiros n h)    de acordo com as regras lógicas, (True || _) é sempre True
+                       | otherwise = nosPrimeiros n h -- ou (False ||  nosPrimeiros n h) , que é equivalente a nosPrimeiros n h
+
+{-
+Versão com acumulador
+
+nosPrimeiros :: (Eq a) => a -> [(a,b)] -> Bool
+nosPrimeiros _ [] = False
+nosPrimeiros n ((p,s):h) = nosPrimeirosAux n ((p,s):h) False
+                          where
+                            nosPrimeirosAux n [] acc = acc
+                            nosPrimeirosAux n ((p,s):h) acc
+                                                           | n == p = nosPrimeirosAux n [] True
+                                                           | otherwise = nosPrimeirosAux n h acc                -- ou (False || acc) => acc
+
+-}                       
+
+
+-- (i) Soma uma lista de triplos componente a componente.
+sumTriplos :: (Num a, Num b, Num c) => [(a,b,c)] -> (a,b,c)
+sumTriplos [] = (0,0,0)
+sumTriplos ((a,b,c):h) = (a+a1,b+b1,c+c1)
+                        where 
+                            (a1,b1,c1) = sumTriplos h
