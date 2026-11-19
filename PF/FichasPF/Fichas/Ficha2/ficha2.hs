@@ -102,3 +102,23 @@ soPos [] = []
 soPos (n:ns)
            | n >= 0 = n : soPos ns
            | otherwise = soPos ns
+
+-- (e) Soma todos os números negativos da lista de entrada
+somaNeg :: [Int] -> Int
+somaNeg [] = 0
+somaNeg (n:ns) 
+             | n<0 = n + somaNeg ns
+             | otherwise = somaNeg ns
+
+{-
+Alternativa com acumulador
+
+somaNeg :: [Int] -> Int
+somaNeg [] = 0
+somaNeg (n:ns) = somaNegAux (n:ns) 0               0 é o valor inicial do acumulador
+               where
+                somaNegAux [] acc = acc
+                somaNegAux (n:ns) acc 
+                                  | n<0 = somaNegAux ns (acc+n)
+                                  | otherwise = somaNegAux ns acc       
+-}
