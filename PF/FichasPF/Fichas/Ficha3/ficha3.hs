@@ -55,6 +55,52 @@ procura nome ((n,d):h)
                       | nome == n = Just d
                       | otherwise = procura nome h
 
+-- procura nome ((n, D d m a))
+
+
+
+
+
+
+
+
+-- Queremos, caso exista no registo, devolver o ano do aniversário da pessoa
+
+
+-- data Data = D Dia Mes Ano
+ -- d (D dia mes ano)
+
+procura1 :: Nome -> TabDN -> Maybe Ano
+procura1 nome [] = Nothing
+procura1 nome ((n, D dia mes ano):h)
+                      | nome == n = Just ano 
+                      | otherwise = procura1 nome h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 existe :: Nome -> TabDN -> Bool
 existe _ [] = False
 existe nome ((n,d):h)
