@@ -117,7 +117,9 @@ idade date nome tabela
 
 calculaIdade :: Data -> Maybe Data -> Maybe Int
 calculaIdade (D d1 m1 a1) (Just (D d2 m2 a2))
-                                             | (a1-a2) >= 0 = Just (a1-a2)
+                                             | (a1-a2) >= 0 && m1 > m2 = Just (a1-a2)
+                                             | (a1-a2) >= 0 && m1 == m2 && d1>d2 = Just (a1-a2)
+                                             | (a1-a2) > 0 && m1 == m2 && d1<=d2 = Just (a1-a2-1)
                                              | otherwise = Nothing
 
 
@@ -136,3 +138,13 @@ validaData (D dia mes ano)
                          | mes == 11 && (dia <= 0 || dia > 30) = False
                          | mes == 12 && (dia <= 0 || dia > 31) = False
                          | otherwise = True
+
+
+
+-- (c)
+anterior :: Data -> Data -> Bool
+anterior (D d1 m1 a1) (D d2 m2 a2)
+                                 | a1 < a2 = True
+                                 | a1 == a2 && m1 < m2 = True
+                                 | a1 == a2 && m1 == m2 && d1 < d2 = True
+                                 | otherwise = False
