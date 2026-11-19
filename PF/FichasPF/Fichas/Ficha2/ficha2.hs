@@ -39,6 +39,38 @@ funB [8,5,12]               mod 8 2 = 0
 -}
 
 
+-- (c)
+funC (x:y:t) = funC t
+funC [x] = [x]
+funC [] = []
+
+
+{-
+funC [1,2,3,4,5]
+funC [3,4,5]
+funC [5]
+[5]
+-}
+
+
+-- (d)
+funD l = g [] l
+g acc [] = acc
+g acc (h:t) = g (h:acc) t
+
+{-
+funD "otrec"
+g [] "otrec"
+g ('o' : []) "trec"                g ['o'] "trec"
+g ('t' : ['o']) "rec"              g ['t', 'o'] "rec"
+g ('r' : ['t', 'o']) "ec"          g ['r', 't', 'o'] "ec"
+g ('e' : ['r', 't', 'o']) "c"      g ['e', 'r', 't', 'o'] "c"
+g ('c' : ['e', 'r', 't', 'o']) ""  g ['c', 'e', 'r', 't', 'o'] ""
+['c', 'e', 'r', 't', 'o']
+
+
+-}
+
 
 
 
