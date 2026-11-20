@@ -148,3 +148,32 @@ anterior (D d1 m1 a1) (D d2 m2 a2)
                                  | a1 == a2 && m1 < m2 = True
                                  | a1 == a2 && m1 == m2 && d1 < d2 = True
                                  | otherwise = False
+
+
+
+{-
+5. 
+Considere o seguinte tipo de dados que descreve a informa¸c˜ao de um extracto banc´ario.
+Cada valor deste tipo indica o saldo inicial e uma lista de movimentos. Cada movimento
+´e representado por um triplo que indica a data da opera¸c˜ao, a sua descri¸c˜ao e a quantia
+movimentada (em que os valores s˜ao sempre n´umeros positivos).
+-}
+
+data Movimento = Credito Float | Debito Float
+                deriving Show
+
+--data Data = D Int Int Int
+  --    deriving Show
+data Extracto = Ext Float [(Data, String, Movimento)]
+         deriving Show
+
+
+-- (a)
+extValor :: Extracto -> Float -> [Movimento]
+extValor (Ext inicial ((_,_,mov):h)) min
+                                        | valorMov mov >= min = mov : extValor (Ext inicial h) min
+                                        | otherwise = extValor (Ext inicial h) min
+
+valorMov :: Movimento -> Float
+valorMov (Credito valor) = valor
+valorMov (Debito valor) = valor
