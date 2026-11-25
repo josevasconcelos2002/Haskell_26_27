@@ -119,7 +119,7 @@ calculaIdade :: Data -> Maybe Data -> Maybe Int
 calculaIdade (D d1 m1 a1) (Just (D d2 m2 a2))
                                              | (a1-a2) >= 0 && m1 > m2 = Just (a1-a2)
                                              | (a1-a2) >= 0 && m1 == m2 && d1>d2 = Just (a1-a2)
-                                             | (a1-a2) > 0 && m1 == m2 && d1<=d2 = Just (a1-a2-1)
+                                             | (a1-a2) > 0 && m1 == m2 && d1<=d2 = Just (a1-a2-1) -- neste caso , a pessoa ainda nao fez aniversario, na data em questao
                                              | otherwise = Nothing
 
 
@@ -150,6 +150,33 @@ anterior (D d1 m1 a1) (D d2 m2 a2)
                                  | otherwise = False
 
 
+
+-- (d)
+ordena :: TabDN -> TabDN
+ordena [] = []
+ordena (n:ns) = insere n (ordena ns)
+
+insere :: (Nome, Data) -> TabDN -> TabDN
+insere n [] = [n]
+insere n1@(nome1, data1) (n2@(nome2,data2):xs)
+                                             | anterior data1 data2 = n1:(n2:xs) 
+                                             | otherwise = n2: insere n1 xs
+
+
+-- (e)
+porIdade :: Data -> TabDN -> [(Nome, Int)]
+porIdade _ [] = []
+porIdade data1 tabela = calcula data1 (reverse (ordena tabela))
+
+calcula :: Data -> TabDN -> [(Nome, Int)]
+calcula _ [] = []
+calcula d ((n1, d1):ns) = (n1, idadeAux d d1):calcula d ns
+                      where
+                        idadeAux :: Data -> Data -> Int
+                        idadeAux (D d1 m1 a1) (D d2 m2 a2)
+                                             | (a1-a2) >= 0 && m1 > m2 =  (a1-a2)
+                                             | (a1-a2) >= 0 && m1 == m2 && d1>d2 =  (a1-a2)
+                                             | (a1-a2) > 0 && m1 == m2 && d1<=d2 =  (a1-a2-1)
 
 {-
 5. 
